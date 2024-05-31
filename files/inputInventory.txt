@@ -1,0 +1,3 @@
+Product:Pera;wholeseler Price:30.00;Available:true;Stock:20;
+Product:Hamburguesa;wholeseler Price:20.00;Available:true;Stock:30;
+Product:Fresa;wholeseler Price:5.00;Available:true;Stock:20;
