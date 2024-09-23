@@ -112,7 +112,8 @@ public class LoginVIew extends javax.swing.JFrame {
         Employee employee = new Employee();
         int user = Integer.parseInt(jTNum.getText());
         String pass = jTPass.getText();
-        boolean finish = employee.logEmployee(user, pass);
+        /* 	  acceso a la base de datos
+         *  boolean finish = employee.logEmployee(user, pass);
         if (!finish) {
             failedAttempts++;
             if (failedAttempts >= MAX_ATTEMPTS) {
@@ -124,6 +125,7 @@ public class LoginVIew extends javax.swing.JFrame {
              jTNum.setText("");
             }
         } else {
+        */
             JOptionPane.showMessageDialog(this, "Session iniciada", "LOGIN", JOptionPane.PLAIN_MESSAGE);
 
             this.setVisible(false);
@@ -131,7 +133,7 @@ public class LoginVIew extends javax.swing.JFrame {
             ShopView SV = new ShopView();
             SV.setVisible(true);
         }
-    }
+    //}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBLogin;
