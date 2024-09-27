@@ -5,9 +5,11 @@
 package view;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.Shop;
+import model.Product;
 import utils.Constants;
 
 /**
@@ -21,15 +23,11 @@ public class ShopView extends javax.swing.JFrame {
 
     /**
      * Creates new form ShopView
+     * @throws IOException 
      */
-    public ShopView() {
+    public ShopView() throws IOException {
         initComponents();
         Shop shop = new Shop();
-        try {
-            shop.loadInventory();
-        } catch (IOException ex) {
-            Logger.getLogger(ShopView.class.getName()).log(Level.SEVERE, null, ex);
-        }
         tienda = shop;
     }
 

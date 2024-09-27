@@ -1,12 +1,15 @@
 package dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import model.Employee;
+import model.Product;
 
 public class DaolmplJDBC implements Dao{
 	private Connection connection;
@@ -60,5 +63,19 @@ public class DaolmplJDBC implements Dao{
 				e.printStackTrace();
 			}
 		}
+	}
+
+
+	@Override
+	public List<Product> getInventory() throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public boolean writeInventory(List<Product> inventario) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

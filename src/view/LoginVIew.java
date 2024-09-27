@@ -4,6 +4,8 @@ import javax.swing.JOptionPane;
 import model.Employee;
 import static utils.Constants.MAX_ATTEMPTS;
 
+import java.io.IOException;
+
 public class LoginVIew extends javax.swing.JFrame {
 
     private int failedAttempts = 0;
@@ -47,7 +49,12 @@ public class LoginVIew extends javax.swing.JFrame {
         jBLogin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBLoginActionPerformed(evt);
+                try {
+					jBLoginActionPerformed(evt);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -90,7 +97,7 @@ public class LoginVIew extends javax.swing.JFrame {
     private void jTNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTNumActionPerformed
     }//GEN-LAST:event_jTNumActionPerformed
 
-    private void jBLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLoginActionPerformed
+    private void jBLoginActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jBLoginActionPerformed
         if (evt.getSource() == jBLogin) {
         }
         logUser();
@@ -108,7 +115,7 @@ public class LoginVIew extends javax.swing.JFrame {
         });
     }
 
-    private void logUser() {
+    private void logUser() throws IOException {
         Employee employee = new Employee();
         int user = Integer.parseInt(jTNum.getText());
         String pass = jTPass.getText();
