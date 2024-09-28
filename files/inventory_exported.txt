@@ -1,4 +1,8 @@
-1;Products=;
-2;Products=;
-3;Products=;
-4;Products=;
+1Product:Pera;wholeseler Price:30.0;Available:true;Stock:20;
+2Product:Hamburguesa;wholeseler Price:20.0;Available:true;Stock:30;
+3Product:Fresa;wholeseler Price:5.0;Available:true;Stock:20;
+4Product:Sandia;wholeseler Price:8.0;Available:true;Stock:15;
+1;Product:Pera;wholeseler Price:30.0;Available:true;Stock:20;
+2;Product:Hamburguesa;wholeseler Price:20.0;Available:true;Stock:30;
+3;Product:Fresa;wholeseler Price:5.0;Available:true;Stock:20;
+4;Product:Sandia;wholeseler Price:8.0;Available:true;Stock:15;
