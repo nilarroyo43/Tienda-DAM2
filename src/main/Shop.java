@@ -36,7 +36,9 @@ public class Shop {
 		sales = new ArrayList<Sale>();
 		this.readInvetory();		
 		
-		System.out.println(inventory);
+		for (Product product : inventory) {
+            System.out.println(product);
+            System.out.println();}
 
 	}
 

@@ -89,6 +89,6 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product --> Name = " + name + " | Public Price = " + publicPrice + " | Whole Saler Price = " + wholesalerPrice
-				+ " | Available = " + available + " | Stock = " + stock;
+				+ " | Available = " + available + " | Stock = " + stock ;
 	}
 }
