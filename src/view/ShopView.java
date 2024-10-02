@@ -51,10 +51,15 @@ public class ShopView extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Seleccione o pulse una opción");
 
-        jBCash.setText("1. Contar caja");
+        jBCash.setText("1. Contar caja + importar inventario");
         jBCash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBCashActionPerformed(evt);
+                try {
+					jBCashActionPerformed(evt);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -116,7 +121,7 @@ public class ShopView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCashActionPerformed
+    private void jBCashActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jBCashActionPerformed
         openCashView();
     }//GEN-LAST:event_jBCashActionPerformed
 
@@ -140,10 +145,12 @@ public class ShopView extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
+     * @throws IOException 
      */
-    public void openCashView() {
+    public void openCashView() throws IOException {
         CashView cv = new CashView(tienda);
         cv.setVisible(true);
+        tienda.writeInventory();
     }
 
     public void OpenProductView() {

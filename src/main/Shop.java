@@ -35,7 +35,7 @@ public class Shop {
 		cash = new Amount(150.0, "€");
 		sales = new ArrayList<Sale>();
 		this.readInvetory();		
-		this.writeInventory();
+		
 		System.out.println(inventory);
 
 	}
@@ -99,7 +99,7 @@ public class Shop {
 		this.inventory = inventory;
 
 	}
-	public void writeInventory() {
+	public void writeInventory() throws IOException {
 		shopDao.writeInventory(inventory);
 	}
 

@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,33 +75,37 @@ public class DaoImplFile implements Dao {
 	}
 
 	@Override
-	public boolean writeInventory(List<Product> inventario) {
-		File f = new File(
-				System.getProperty("user.dir") + File.separator + "files" + File.separator + "inventory_exported.txt");
-		try {
-		
-			FileWriter fw = new FileWriter(f, true);
-			PrintWriter pw = new PrintWriter(fw);
-			int index = 1;
-			for (Product product : inventario) {
-				StringBuilder ProductLine = new StringBuilder(index + ";Product:" + product.getName() + ";"
-						+ "wholeseler Price:" + product.getWholesalerPrice().getValue() + ";" + "Available:"
-						+ product.isAvailable() + ";" + "Stock:" + product.getStock() + ";");
-				pw.write(ProductLine.toString());
-				fw.write("\n");
-				index++;
-			}
-			pw.close();
-			fw.close();
-			return true;
-		} catch (IOException e) {
-			e.printStackTrace();
+	public boolean writeInventory(List<Product> inventario) throws IOException {
+		File newFolder = new File(System.getProperty("user.dir") + File.separator + "files");
+		if (!newFolder.exists()) {
+			newFolder.mkdir();
+		}
+		LocalDate currentDate = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formattedDate = currentDate.format(formatter);
+		File f = new File(newFolder, "invetory_" + formattedDate + ".txt");
+		if (!f.exists()) {
+			f.createNewFile();
+		} else {
 			return false;
 		}
+		FileWriter fw = new FileWriter(f, true);
+		PrintWriter pw = new PrintWriter(fw);
+		int index = 1;
+		for (Product product : inventario) {
+			StringBuilder ProductLine = new StringBuilder(
+					index + ";Product:" + product.getName() + ";" + "Stock:" + product.getStock() + ";");
+			pw.write(ProductLine.toString());
+			fw.write("\n");
+			index++;
+		}
+		StringBuilder totalLine = new StringBuilder("Numero total de productos:" + (index-1) + ";");
+		pw.write(totalLine.toString());
+		pw.close();
+		fw.close();
+		return true;
 	}
 
-
-	
 	@Override
 	public Employee getEmployee(int employeeid, String password) {
 		// TODO Auto-generated method stub
@@ -115,6 +121,6 @@ public class DaoImplFile implements Dao {
 	@Override
 	public void connect() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

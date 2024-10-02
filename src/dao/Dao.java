@@ -14,7 +14,7 @@ public interface Dao {
 	
 	public List<Product> getInventory() throws IOException;
 	
-	public boolean writeInventory(List<Product> inventario);
+	public boolean writeInventory(List<Product> inventario) throws IOException;
 	
 	public void disconnect();	
 }
