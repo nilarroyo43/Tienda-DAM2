@@ -11,6 +11,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import model.Amount;
 import model.Employee;
 import model.Product;
@@ -87,6 +89,7 @@ public class DaoImplFile implements Dao {
 		if (!f.exists()) {
 			f.createNewFile();
 		} else {
+			 JOptionPane.showMessageDialog( null, "No se a podido exportar el archivo debido a que ya existe", "ERROR", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		FileWriter fw = new FileWriter(f, true);
@@ -103,6 +106,7 @@ public class DaoImplFile implements Dao {
 		pw.write(totalLine.toString());
 		pw.close();
 		fw.close();
+		  JOptionPane.showMessageDialog(null, "Archivo exportado", "Exported", JOptionPane.PLAIN_MESSAGE);
 		return true;
 	}
 
