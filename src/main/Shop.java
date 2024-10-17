@@ -7,9 +7,11 @@ import model.Cliente;
 import model.Employee;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import dao.DaoImplFile;
+import dao.DaoImplXml;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,7 +26,8 @@ public class Shop {
 
 	public int numberProducts;
 	private ArrayList<Sale> sales;
-	public DaoImplFile shopDao = new DaoImplFile();
+	//public DaoImplFile shopDao = new DaoImplFile();
+	public DaoImplXml shopDao = new DaoImplXml();
 	public ArrayList<Product> inventory;
 
 	int sale_num = 0;
@@ -97,8 +100,8 @@ public class Shop {
 		this.setInvetory(shopDao.getInventory());
 
 	}
-	public void setInvetory(ArrayList<Product> inventory){
-		this.inventory = inventory;
+	public void setInvetory(List<Product> list){
+		this.inventory = (ArrayList<Product>) list;
 
 	}
 	public void writeInventory() throws IOException {
