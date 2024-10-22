@@ -46,20 +46,20 @@ public class SaxReader extends DefaultHandler {
 		this.parsedElement = qName;
 	}
 
-	/*@Override
+	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		value = new String(ch, start, length);
 		switch (parsedElement) {
 		case "product":
 			break;
-		case "price":
-			this.product.setPrice(Float.valueOf(value));
+		case "wholesalerPrice":
+			this.product.setWholesalerPrice(new Amount(Float.valueOf(value), "€"));
 			break;
 		case "stock":
 			this.product.setStock(Integer.valueOf(value));
 			break;
 		}
-	}*/
+	}
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
@@ -71,13 +71,13 @@ public class SaxReader extends DefaultHandler {
 
 	@Override
 	public void endDocument() throws SAXException {
-	//	printDocument();
+		//printDocument();
 	}
-
+/*
 	private void printDocument() {
 		for (Product p : products) {
 			System.out.println(p.toString());
 		}
-	}
+	}*/
 
 }
