@@ -97,7 +97,9 @@ public class Shop {
 	 */
 
 	public void readInvetory() throws IOException {
+		System.out.println(inventory);
 		this.setInvetory(shopDao.getInventory());
+		System.out.println(inventory);
 
 	}
 	public void setInvetory(List<Product> list){
