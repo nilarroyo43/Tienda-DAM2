@@ -15,9 +15,15 @@ public class SaxReader extends DefaultHandler {
 	String value;
 	String parsedElement;
 
+
+	/**
+	 * @return the products
+	 */
+
 	public ArrayList<Product> getProducts() {
 		return products;
 	}
+
 
 	public void setProducts(ArrayList<Product> products) {
 		this.products = products;
@@ -33,13 +39,12 @@ public class SaxReader extends DefaultHandler {
 		this.parsedElement = qName;
 		switch (qName) {
 		case "product":
-			this.product = new Product(attributes.getValue("name") != null ? attributes.getValue("name") : "empty",
-					null, true, 0);
+			this.product = new Product(attributes.getValue("name"),new Amount(0.0, ""), true, 0);
 			break;
 		case "wholesalerPrice":
-			String currency = attributes.getValue("currency");
 			break;
 		}
+		this.parsedElement = qName;
 
 	}
 
@@ -50,12 +55,7 @@ public class SaxReader extends DefaultHandler {
 		case "product":
 			break;
 		case "wholesalerPrice":
-			try {
-				this.product.setWholesalerPrice(Amount.valueOf(value)); 
-																		
-			} catch (NumberFormatException e) {
-				System.err.println("Error al convertir wholesalerPrice: " + value);
-			}
+			this.product.setWholesalerPrice(new Amount(Float.valueOf(value), "€"));
 			break;
 		case "stock":
 			this.product.setStock(Integer.valueOf(value));
@@ -65,22 +65,24 @@ public class SaxReader extends DefaultHandler {
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-		
-		if (qName.equals("product")) {
+		// we add the product into the arrayList
+		if (qName.equals("product"))
 			this.products.add(product);
-		}
 		this.parsedElement = "";
 	}
 
 	@Override
 	public void endDocument() throws SAXException {
-		printDocument();
+		//printDocument();
 	}
-
+/*
 	private void printDocument() {
 		for (Product p : products) {
 			System.out.println(p.toString());
 		}
+
 	}
+	*/
+
 
 }

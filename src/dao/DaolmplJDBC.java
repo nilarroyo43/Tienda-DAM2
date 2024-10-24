@@ -73,8 +73,14 @@ public class DaolmplJDBC implements Dao{
 	}
 
 
+	
+
+
+	
+
+
 	@Override
-	public boolean writeInventory(List<Product> inventario) {
+	public boolean writeInventory(List<Product> inventario) throws IOException {
 		// TODO Auto-generated method stub
 		return false;
 	}
