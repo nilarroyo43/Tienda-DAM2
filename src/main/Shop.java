@@ -45,12 +45,14 @@ public class Shop {
 
 	}
 
-	/*
-	 * public static void main(String[] args) throws IOException { Shop shop = new
-	 * Shop();
-	 * 
-	 * shop.loadInventory();
-	 * 
+	
+	  public static void main(String[] args) throws IOException {
+		  Shop shop = new Shop();
+		  System.out.println(shop.inventory);
+		  
+	  }
+	 
+	/* 
 	 * Scanner scanner = new Scanner(System.in); int opcion = 0; boolean exit =
 	 * false;
 	 * 

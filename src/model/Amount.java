@@ -29,4 +29,9 @@ public class Amount {
 	    public String toString() {
 	        return value + currency;
 	    }
+
+		public static Amount valueOf(String value2) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 }
