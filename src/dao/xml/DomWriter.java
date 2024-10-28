@@ -46,13 +46,13 @@ public class DomWriter {
 		for (Product pdct_invet : inventario) {
 			total++;
 		}
-		
-			Element products = document.createElement("products");
-			products.setAttribute("total", String.valueOf(total));
-			document.appendChild(products);
 
-			int i = 1;
-			for (Product pr_invetario : inventario) {
+		Element products = document.createElement("products");
+		products.setAttribute("total", String.valueOf(total));
+		document.appendChild(products);
+
+		int i = 1;
+		for (Product pr_invetario : inventario) {
 			Element product = document.createElement("product");
 			product.setAttribute("id", String.valueOf(i));
 			products.appendChild(product);
@@ -83,6 +83,7 @@ public class DomWriter {
 	}
 
 	private void generateXml() {
+		boolean eror = false;
 		try {
 			TransformerFactory factory = TransformerFactory.newInstance();
 			Transformer transformer = factory.newTransformer();
@@ -98,14 +99,19 @@ public class DomWriter {
 			Result result = new StreamResult(pw);
 			transformer.transform(source, result);
 		} catch (IOException e) {
+			eror = true;
 			System.out.println("Error when creating writter file");
-			 JOptionPane.showMessageDialog( null, "Error al exportar el archivo", "ERROR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error al encontrar la carpeta donde exportar el archivo", "ERROR", JOptionPane.ERROR_MESSAGE);
 
 		} catch (TransformerException e) {
+			eror = true;
 			System.out.println("Error transforming the document");
-			 JOptionPane.showMessageDialog( null, "Error al transforamr el documento", "ERROR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error al transforamr el documento", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
 
 		}
-		 JOptionPane.showMessageDialog(null, "Archivo exportado", "Exported", JOptionPane.PLAIN_MESSAGE);
+		if (eror == false) {
+			JOptionPane.showMessageDialog(null, "Archivo exportado", "Exported", JOptionPane.PLAIN_MESSAGE);
+		}
 	}
 }
