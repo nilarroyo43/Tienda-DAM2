@@ -12,7 +12,7 @@ import javax.xml.bind.Marshaller;
 
 import model.Product;
 import model.ProductList;
-//hay que hacer que reciba un productList
+
 public class JaxbMarshaller {
 	public boolean init(ProductList inventory) {
 		try {

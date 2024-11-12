@@ -6,27 +6,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "product")
-@XmlType(propOrder = {"id", "name", "wholesalerPrice", "stock"})
+@XmlType(propOrder = {"id", "name", "aviable", "wholesalerPrice", "stock"})
 public class Product {
+    private static int totalProducts = 0; 
+    
     private int id;
     private String name;
     private Amount wholesalerPrice;
     private int stock;
     private boolean aviable;
-    private int totalProducts = 0;  
 
-        public Product() {
+    public Product() {
+       
+        this.id = ++totalProducts;
     }
 
- 
     public Product(String name, Amount wholesalerPrice, int stock) {
-    	this.id = totalProducts;  
+        this();  // Llamamos al constructor sin parámetros para que se asigne el ID
         this.name = name;
         this.wholesalerPrice = wholesalerPrice;
         this.stock = stock;
         this.aviable = true;
     }
 
+    @XmlAttribute
     public int getId() {
         return id;
     }
@@ -35,7 +38,7 @@ public class Product {
         this.id = id;
     }
 
-    @XmlAttribute 
+    @XmlAttribute
     public String getName() {
         return name;
     }
@@ -44,7 +47,16 @@ public class Product {
         this.name = name;
     }
 
-    @XmlElement 
+    @XmlElement
+    public boolean getAviable() {
+        return aviable;
+    }
+
+    public void setAviable(boolean aviable) {
+        this.aviable = aviable;
+    }
+
+    @XmlElement
     public Amount getWholesalerPrice() {
         return wholesalerPrice;
     }
@@ -53,7 +65,7 @@ public class Product {
         this.wholesalerPrice = wholesalerPrice;
     }
 
-    @XmlElement 
+    @XmlElement
     public int getStock() {
         return stock;
     }
@@ -62,17 +74,8 @@ public class Product {
         this.stock = stock;
     }
 
-    public int getAviable() {
-        return stock;
-    }
-
-    public void setAviable(boolean aviable) {
-        this.aviable = aviable;
-    }
-
     @Override
     public String toString() {
-        return id + "Product{name=" + name + ", wholesalerPrice=" + wholesalerPrice + 
-               ", stock=" + stock + "}";
+        return "Product{id=" + id + ", name='" + name + "', wholesalerPrice=" + wholesalerPrice + ", stock=" + stock + "}";
     }
 }
