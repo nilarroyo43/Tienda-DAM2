@@ -51,7 +51,7 @@ public class ShopView extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Seleccione o pulse una opción");
 
-        jBCash.setText("1. Contar caja + exportar inventario");
+        jBCash.setText("1. Contar caja + importar inventario");
         jBCash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {

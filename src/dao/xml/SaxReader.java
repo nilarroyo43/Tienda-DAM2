@@ -39,7 +39,7 @@ public class SaxReader extends DefaultHandler {
 		this.parsedElement = qName;
 		switch (qName) {
 		case "product":
-			this.product = new Product(attributes.getValue("name"),new Amount(0.0, ""), true, 0);
+			this.product = new Product(attributes.getValue("name"),new Amount(0.0, ""), 0);
 			break;
 		case "wholesalerPrice":
 			break;

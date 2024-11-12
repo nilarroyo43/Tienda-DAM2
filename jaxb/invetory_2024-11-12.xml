@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<products>
+	<product name="Pera">
+		<id>0</id>
+		<wholesalerPrice currency="Euro">30.0</wholesalerPrice>
+		<stock>20</stock>
+	</product>
+	<product name="Hamburguesa">
+		<id>0</id>
+		<wholesalerPrice currency="Euro">20.0</wholesalerPrice>
+		<stock>30</stock>
+	</product>
+	<product name="Fresa">
+		<id>0</id>
+		<wholesalerPrice currency="Euro">5.0</wholesalerPrice>
+		<stock>20</stock>
+	</product>
+	<product name="Sandia">
+		<id>0</id>
+		<wholesalerPrice currency="Euro">8.0</wholesalerPrice>
+		<stock>15</stock>
+	</product>
+</products>

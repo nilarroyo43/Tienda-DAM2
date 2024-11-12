@@ -1,94 +1,78 @@
 package model;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name = "product")
+@XmlType(propOrder = {"id", "name", "wholesalerPrice", "stock"})
 public class Product {
-	private int id;
+    private int id;
     private String name;
-    private Amount publicPrice;
     private Amount wholesalerPrice;
-    private boolean available;
     private int stock;
-    private static int totalProducts;
-    
-    final static double EXPIRATION_RATE=0.60;
-    
-	public Product(String name, Amount wholesalerPrice, boolean available, int stock) {
-		super();
-		this.id = totalProducts + 1;
-		this.name = name;
-		this.wholesalerPrice = wholesalerPrice;
-		this.publicPrice = new Amount(0.0, ""); 
-		this.publicPrice.setValue(getWholesalerPrice().getValue() * 2);
-		this.available = available;
-		this.stock = stock;
-		totalProducts++;
-	}
+    private boolean aviable;
+    private int totalProducts = 0;  
 
-	public int getId() {
-		return id;
-	}
+        public Product() {
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+ 
+    public Product(String name, Amount wholesalerPrice, int stock) {
+    	this.id = totalProducts;  
+        this.name = name;
+        this.wholesalerPrice = wholesalerPrice;
+        this.stock = stock;
+        this.aviable = true;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public Amount getPublicPrice() {
-		return publicPrice;
-	}
+    @XmlAttribute 
+    public String getName() {
+        return name;
+    }
 
-	public void setPublicPrice(Amount publicPrice) {
-		this.publicPrice = publicPrice;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Amount getWholesalerPrice() {
-		return wholesalerPrice;
-	}
+    @XmlElement 
+    public Amount getWholesalerPrice() {
+        return wholesalerPrice;
+    }
 
-	public void setWholesalerPrice(Amount wholesalerPrice) {
-		this.wholesalerPrice = wholesalerPrice;
-	}
+    public void setWholesalerPrice(Amount wholesalerPrice) {
+        this.wholesalerPrice = wholesalerPrice;
+    }
 
-	public boolean isAvailable() {
-		return available;
-	}
+    @XmlElement 
+    public int getStock() {
+        return stock;
+    }
 
-	public void setAvailable(boolean available) {
-		this.available = available;
-	}
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 
-	public int getStock() {
-		return stock;
-	}
+    public int getAviable() {
+        return stock;
+    }
 
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
+    public void setAviable(boolean aviable) {
+        this.aviable = aviable;
+    }
 
-	public static int getTotalProducts() {
-		return totalProducts;
-	}
-
-	public static void setTotalProducts(int totalProducts) {
-		Product.totalProducts = totalProducts;
-	}
-	
-	public void expire() {
-		this.publicPrice.setValue(getPublicPrice().getValue() * EXPIRATION_RATE);
-		//double = double * double;
-		// set(Amount) = Amount.double * double;
-		
-	}
-
-	@Override
-	public String toString() {
-		return "Product --> Name = " + name + " | Public Price = " + publicPrice + " | Whole Saler Price = " + wholesalerPrice
-				+ " | Available = " + available + " | Stock = " + stock ;
-	}
+    @Override
+    public String toString() {
+        return id + "Product{name=" + name + ", wholesalerPrice=" + wholesalerPrice + 
+               ", stock=" + stock + "}";
+    }
 }

@@ -185,7 +185,7 @@ public class ProductView extends javax.swing.JDialog {
         if (!product) {
             double wholesalerPrice = parseDouble(jTPrice.getText());
             int stock = parseInt(jTStock.getText());
-            shop.inventory.add(new Product(name, new Amount(wholesalerPrice, "€"), true, stock));
+            shop.inventory.add(new Product(name, new Amount(wholesalerPrice, "€"), stock));
             shop.numberProducts++;
             JOptionPane.showMessageDialog(this, "El producto se a añadido correctamnete en el inventario", "SUCCES", JOptionPane.PLAIN_MESSAGE);
 

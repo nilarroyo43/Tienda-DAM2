@@ -1,0 +1,35 @@
+package dao.jaxb;
+
+import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+
+import model.Product;
+import model.ProductList;
+//hay que hacer que reciba un productList
+public class JaxbMarshaller {
+	public boolean init(ProductList inventory) {
+		try {
+			JAXBContext context = JAXBContext.newInstance(ProductList.class);
+			Marshaller marshaller = context.createMarshaller();
+			System.out.println("marshalling... ");
+			ProductList products = inventory;
+			LocalDate currentDate = LocalDate.now();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			String formattedDate = currentDate.format(formatter);
+			File f = new File("jaxb/invetory_" + formattedDate + ".xml");
+			marshaller.marshal(products,f);
+			return true;
+		} catch (JAXBException e) {
+			e.printStackTrace();
+			return false;
+
+		}
+	}
+}
