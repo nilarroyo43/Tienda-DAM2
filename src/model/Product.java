@@ -6,18 +6,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "product")
-@XmlType(propOrder = {"id", "name", "aviable", "wholesalerPrice", "stock"})
+@XmlType(propOrder = {"id", "name", "aviable", "wholesalerPrice", "publicPrice", "stock"})
 public class Product {
     private static int totalProducts = 0; 
     
     private int id;
     private String name;
     private Amount wholesalerPrice;
+    private Amount publiPrice;
     private int stock;
-    private boolean aviable;
+    private boolean aviable  = true;
 
     public Product() {
-       
         this.id = ++totalProducts;
     }
 
@@ -26,8 +26,7 @@ public class Product {
         this.name = name;
         this.wholesalerPrice = wholesalerPrice;
         this.stock = stock;
-        this.aviable = true;
-    }
+        }
 
     @XmlAttribute
     public int getId() {
@@ -45,6 +44,16 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setPublicPrice(Amount wholesalerPrice) {
+        double value = wholesalerPrice.getValue() * 1.04;
+        this.publiPrice = new Amount(value, wholesalerPrice.getCurrency());
+    }
+
+    @XmlElement
+    public Amount getPublicPrice() {
+        return publiPrice;
     }
 
     @XmlElement
@@ -76,6 +85,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{id=" + id + ", name='" + name + "', wholesalerPrice=" + wholesalerPrice + ", stock=" + stock + "}";
+        return "Product{id=" + id + ", name='" + name + "', wholesalerPrice=" + wholesalerPrice.getValue() + 
+                 ", stock=" + stock + "}";
     }
 }

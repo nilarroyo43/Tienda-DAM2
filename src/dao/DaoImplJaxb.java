@@ -23,8 +23,14 @@ public class DaoImplJaxb implements Dao {
     @Override
     public List<Product> getInventory() throws IOException {
         List<Product> products = jaxbUnMarsh.init();
+        if (products != null) {
+            for (Product product : products) {
+                product.setPublicPrice(product.getWholesalerPrice()); 
+            }
+        }
         return products;
     }
+
 
     @Override
     public void disconnect() {
