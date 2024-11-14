@@ -17,7 +17,7 @@
 	</product>
 	<product id="4">
 		<name>Sandia</name>
-		<price currency="€">8.0</price>
+		<price currency="€ ">8.0</price>
 		<stock>15</stock>
 	</product>
 	<product id="5">
