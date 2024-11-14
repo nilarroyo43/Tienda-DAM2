@@ -25,7 +25,7 @@ public class Amount {
 
     @XmlAttribute(name = "currency")
     public String getCurrency() {
-        return currency;
+        return "€";
     }
 
     public void setCurrency(String currency) {

@@ -6,16 +6,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "product")
-@XmlType(propOrder = {"id", "name", "aviable", "wholesalerPrice", "publicPrice", "stock"})
+@XmlType(propOrder = {"id", "name", "available", "wholesalerPrice", "publicPrice", "stock"})
 public class Product {
     private static int totalProducts = 0; 
-    
     private int id;
     private String name;
     private Amount wholesalerPrice;
     private Amount publiPrice;
     private int stock;
-    private boolean aviable  = true;
+    private boolean available  = true;
 
     public Product() {
         this.id = ++totalProducts;
@@ -47,7 +46,7 @@ public class Product {
     }
 
     public void setPublicPrice(Amount wholesalerPrice) {
-        double value = wholesalerPrice.getValue() * 1.04;
+        double value = wholesalerPrice.getValue() * 2;
         this.publiPrice = new Amount(value, wholesalerPrice.getCurrency());
     }
 
@@ -57,12 +56,12 @@ public class Product {
     }
 
     @XmlElement
-    public boolean getAviable() {
-        return aviable;
+    public boolean getAvailable() {
+        return available;
     }
 
-    public void setAviable(boolean aviable) {
-        this.aviable = aviable;
+    public void setAvailable(boolean aviable) {
+        this.available = aviable;
     }
 
     @XmlElement
