@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -24,10 +25,13 @@ public class JaxbMarshaller {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			String formattedDate = currentDate.format(formatter);
 			File f = new File("jaxb/invetory_" + formattedDate + ".xml");
-			marshaller.marshal(products,f);
+			marshaller.marshal(products, f);
+			JOptionPane.showMessageDialog(null, "Archivo exportado", "Exported", JOptionPane.PLAIN_MESSAGE);
 			return true;
 		} catch (JAXBException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "No se a podido exportar el archivo", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
 			return false;
 
 		}
