@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import dao.DaoImplFile;
+import dao.DaoImplJDBC;
 import dao.DaoImplJaxb;
 import dao.DaoImplXml;
 
@@ -28,7 +29,8 @@ public class Shop {
 	public int numberProducts;
 	// private ArrayList<Sale> sales;
 	// public DaoImplFile shopDao = new DaoImplFile();
-	public DaoImplJaxb shopDao = new DaoImplJaxb();
+	//public DaoImplJaxb shopDao = new DaoImplJaxb();
+	public DaoImplJDBC shopDao = new DaoImplJDBC();
 	public List<Product> inventory;
 
 	// int sale_num = 0;
@@ -37,11 +39,12 @@ public class Shop {
 
 	public Shop() throws IOException {
 		cash = new Amount(150.0, "€");
+		shopDao.connect();
 		this.readInvetory();
 
 	}
 
-	public static void main(String[] args) throws IOException {
+	/*public static void main(String[] args) throws IOException {
 		Shop shop = new Shop();
 		System.out.println(shop.inventory);
 
@@ -50,7 +53,6 @@ public class Shop {
 	/*
 	 * Scanner scanner = new Scanner(System.in); int opcion = 0; boolean exit =
 	 * false;
-	 * 
 	 * shop.initSession(); do { System.out.println("===========================");
 	 * System.out.println("Menu principal miTienda.com");
 	 * System.out.println("===========================");

@@ -6,12 +6,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
+import model.Amount;
 import model.Employee;
+import model.Person;
 import model.Product;
 
-public class DaolmplJDBC implements Dao{
+public class DaoImplJDBC implements Dao{
 	private Connection connection;
 	@Override
 	public void connect()  {
@@ -19,6 +23,7 @@ public class DaolmplJDBC implements Dao{
 		String url = "jdbc:mysql://localhost:8889/shop";
 		String user = "root";
 		String pass = "root";
+		
 		try {
 			this.connection = DriverManager.getConnection(url, user, pass);
 		} catch (SQLException e) {
@@ -26,6 +31,7 @@ public class DaolmplJDBC implements Dao{
 			e.printStackTrace();
 		}
 	}
+	public static final String GET_PRODUCTS = "select * from inventory";
 
 
 	@Override
@@ -68,14 +74,26 @@ public class DaolmplJDBC implements Dao{
 
 	@Override
 	public List<Product> getInventory() throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Product> product = new ArrayList<>();
+		Amount wholesalerPrice = new Amount();
+		try (Statement ps = connection.createStatement()) {
+
+			try (ResultSet rs = ps.executeQuery(GET_PRODUCTS)) {
+				// for each result add to list
+				while (rs.next()) {
+					// get data for each person from column
+					wholesalerPrice = new Amount(rs.getInt(3), "€");
+					product.add(
+							new Product(rs.getString(2), wholesalerPrice, rs.getInt(5)));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return product;
+
 	}
-
-
-	
-
-
 	
 
 

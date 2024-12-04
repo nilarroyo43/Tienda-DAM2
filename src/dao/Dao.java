@@ -13,9 +13,7 @@ public interface Dao {
 	public Employee getEmployee(int employeeid, String password);
 	
 	public List<Product> getInventory() throws IOException;
-	
 
-	
 	public void disconnect();
 
 	boolean writeInventory(List<Product> inventario) throws IOException;
