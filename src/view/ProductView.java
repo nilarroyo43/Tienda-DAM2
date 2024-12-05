@@ -6,6 +6,8 @@ package view;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
+
+import java.io.IOException;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 import main.Shop;
@@ -86,7 +88,12 @@ public class ProductView extends javax.swing.JDialog {
         jBOk.setText("Ok");
         jBOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBOkActionPerformed(evt);
+                try {
+					jBOkActionPerformed(evt);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -153,7 +160,7 @@ public class ProductView extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTNameActionPerformed
 
-    private void jBOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBOkActionPerformed
+    private void jBOkActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jBOkActionPerformed
         switch (opcion) {
             case 1:
                 addProductView();
@@ -172,7 +179,7 @@ public class ProductView extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jBCancelActionPerformed
 
-    public void addProductView() {
+    public void addProductView() throws IOException {
         if (shop.isInventoryFull()) {
             JOptionPane.showMessageDialog(this, "El inventario esta lleno", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
@@ -185,9 +192,11 @@ public class ProductView extends javax.swing.JDialog {
         if (!product) {
             double wholesalerPrice = parseDouble(jTPrice.getText());
             int stock = parseInt(jTStock.getText());
-            shop.inventory.add(new Product(name, new Amount(wholesalerPrice, "€"), stock));
+            Product prdct = new Product(name, new Amount(wholesalerPrice, "€"), stock);
+            shop.inventory.add(prdct);
             shop.numberProducts++;
-            JOptionPane.showMessageDialog(this, "El producto se a añadido correctamnete en el inventario", "SUCCES", JOptionPane.PLAIN_MESSAGE);
+            shop.addProductSql(prdct);
+            JOptionPane.showMessageDialog(this, "El producto se a añadido correctamente en el inventario", "SUCCES", JOptionPane.PLAIN_MESSAGE);
 
             this.dispose();
         } else {
@@ -196,7 +205,7 @@ public class ProductView extends javax.swing.JDialog {
 
     }
 
-    public void addStockView() {
+    public void addStockView() throws IOException {
         String name = jTName.getText();
         Product product = shop.findProduct(name);
 
@@ -204,6 +213,7 @@ public class ProductView extends javax.swing.JDialog {
             int stock = parseInt(jTStock.getText());
             int newStock = product.getStock() + stock;
             product.setStock(newStock);
+            shop.updateStockSql(product);
             JOptionPane.showMessageDialog(this, "El stock del producto " + name + " ha sido actualizado ", "SUCCES", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
         } else {
@@ -212,7 +222,7 @@ public class ProductView extends javax.swing.JDialog {
         }
     }
 
-    public void deleteProductView() {
+    public void deleteProductView() throws IOException {
         String name = jTName.getText();
         boolean product = shop.productExists(name);
 
@@ -222,6 +232,7 @@ public class ProductView extends javax.swing.JDialog {
                 for (int i = 0; i < shop.inventory.size(); i++) {
                     if (shop.inventory.get(i) != null && shop.inventory.get(i).getName().equalsIgnoreCase(name)) {
                         shop.inventory.remove(i);
+                        shop.deleteProductSql(prod);
                         JOptionPane.showMessageDialog(this, "El stock del producto " + name + " ha sido eliminado ", "SUCCES", JOptionPane.PLAIN_MESSAGE);
                         dispose();
                     }

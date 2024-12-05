@@ -46,4 +46,24 @@ public class DaoImplJaxb implements Dao {
         return false;
     	}
     }
+
+	@Override
+	public boolean addProduct(Product producto) throws IOException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
+
+	@Override
+	public boolean deleteProduct(Product producto) throws IOException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateProduct(String name, int stock) throws IOException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

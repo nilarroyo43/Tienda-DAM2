@@ -147,6 +147,24 @@ public class Shop {
 	 * 
 	 * /** add stock for a specific product
 	 */
+	public Amount getCash() {
+		return cash;
+	}
+	
+	public void addProductSql(Product product) throws IOException {
+		shopDao.addProduct(product);
+		
+	}
+	public void updateStockSql(Product product)throws IOException {
+		shopDao.updateProduct(product.getName(), product.getStock());
+		
+	}
+	public void deleteProductSql(Product product)throws IOException {
+		shopDao.deleteProduct(product);
+		
+	}
+	
+
 
 	public void addStock() {
 		Scanner scanner = new Scanner(System.in);
@@ -388,8 +406,4 @@ public class Shop {
 	 * (finish == false) { System.out.println("numero o contraseña incorrecta"); } }
 	 * while (!finish); System.out.println("sesion iniciada"); }
 	 */
-	public Amount getCash() {
-		return cash;
-	}
-
 }
