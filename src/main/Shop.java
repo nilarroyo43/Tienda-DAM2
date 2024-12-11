@@ -29,13 +29,13 @@ public class Shop {
 	public int numberProducts;
 	// private ArrayList<Sale> sales;
 	// public DaoImplFile shopDao = new DaoImplFile();
-	//public DaoImplJaxb shopDao = new DaoImplJaxb();
+	// public DaoImplJaxb shopDao = new DaoImplJaxb();
 	public DaoImplJDBC shopDao = new DaoImplJDBC();
 	public List<Product> inventory;
 
 	// int sale_num = 0;
 
-	//final static double TAX_RATE = 1.04;
+	// final static double TAX_RATE = 1.04;
 
 	public Shop() throws IOException {
 		cash = new Amount(150.0, "€");
@@ -44,16 +44,15 @@ public class Shop {
 
 	}
 
-	/*public static void main(String[] args) throws IOException {
-		Shop shop = new Shop();
-		System.out.println(shop.inventory);
-
-	}
-
 	/*
-	 * Scanner scanner = new Scanner(System.in); int opcion = 0; boolean exit =
-	 * false;
-	 * shop.initSession(); do { System.out.println("===========================");
+	 * public static void main(String[] args) throws IOException { Shop shop = new
+	 * Shop(); System.out.println(shop.inventory);
+	 * 
+	 * }
+	 * 
+	 * /* Scanner scanner = new Scanner(System.in); int opcion = 0; boolean exit =
+	 * false; shop.initSession(); do {
+	 * System.out.println("===========================");
 	 * System.out.println("Menu principal miTienda.com");
 	 * System.out.println("===========================");
 	 * System.out.println("1) Contar caja");
@@ -112,8 +111,13 @@ public class Shop {
 
 	}
 
-	public void writeInventory() throws IOException {
-		shopDao.writeInventory(inventory);
+	public boolean writeInventory() throws IOException {
+		boolean exported = shopDao.writeInventory(inventory);
+		if (exported) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/*
@@ -150,21 +154,35 @@ public class Shop {
 	public Amount getCash() {
 		return cash;
 	}
-	
-	public void addProductSql(Product product) throws IOException {
-		shopDao.addProduct(product);
-		
-	}
-	public void updateStockSql(Product product)throws IOException {
-		shopDao.updateProduct(product.getName(), product.getStock());
-		
-	}
-	public void deleteProductSql(Product product)throws IOException {
-		shopDao.deleteProduct(product);
-		
-	}
-	
 
+	public boolean addProductSql(Product product) throws IOException {
+		boolean added = shopDao.addProduct(product);
+		if (added) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	public boolean updateStockSql(Product product) throws IOException {
+		boolean updated = shopDao.updateProduct(product.getName(), product.getStock());
+		if (updated) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	public boolean deleteProductSql(Product product) throws IOException {
+		boolean deleted = shopDao.deleteProduct(product);
+		if (deleted) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public void addStock() {
 		Scanner scanner = new Scanner(System.in);
@@ -231,43 +249,42 @@ public class Shop {
 	}
 
 	// make a sale of products to a client
-/*
-	public void sale() { Scanner sc = new Scanner(System.in);
-	  System.out.println("Realizar venta, escribir nombre cliente"); Cliente client
-	 = new Cliente(sc.next(), 456, new Amount(50.00, "€"));
-	 
-	  Amount totalAmount = new Amount(0.0, "€"); String name = ""; int product_num
-	  = 0; ArrayList<Product> products = new ArrayList<Product>(); int quantity;
-	  
-	  // Guardar la fecha y hora actual LocalDateTime dateTime =
-	  LocalDateTime.now();
-	  
-	  while (!name.equals("0")) { sc = new Scanner(System.in); showInventorySale();
-	  
-	  System.out.
-	  println("Introduce el nombre del producto, escribir 0 para terminar:"); name
-	  = sc.nextLine();
-	  
-	 if (name.equals("0")) { break; }
-	 
-	  Product product = findProduct(name); boolean productAvailable = false;
-	  
-	  if (product != null && product.isAvailable()) {
-	  System.out.println("Introduce la cantidad deseada:"); quantity =
-	  sc.nextInt();
-	  
-	  if (product.getStock() == 0) { product.setAviable(false);
-	  System.out.println("Producto sin stock."); } else if (quantity >
-	  product.getStock()) { product.setAviable(false);
-	  System.out.println("Cantidad mayor al stock disponible del producto.");
-	  break; } else { productAvailable = true; products.add(product_num, product);
-	  product_num++; totalAmount.setValue(totalAmount.getValue() +
-	  (product.getPublicPrice().getValue() * quantity));
-	  product.setStock(product.getStock() - quantity);
-	  System.out.println("Producto añadido con éxito"); } }
-
 	/*
-	 * if (!productAvailable) { System.out.println("Producto no encontrado"); } }
+	 * public void sale() { Scanner sc = new Scanner(System.in);
+	 * System.out.println("Realizar venta, escribir nombre cliente"); Cliente client
+	 * = new Cliente(sc.next(), 456, new Amount(50.00, "€"));
+	 * 
+	 * Amount totalAmount = new Amount(0.0, "€"); String name = ""; int product_num
+	 * = 0; ArrayList<Product> products = new ArrayList<Product>(); int quantity;
+	 * 
+	 * // Guardar la fecha y hora actual LocalDateTime dateTime =
+	 * LocalDateTime.now();
+	 * 
+	 * while (!name.equals("0")) { sc = new Scanner(System.in); showInventorySale();
+	 * 
+	 * System.out.
+	 * println("Introduce el nombre del producto, escribir 0 para terminar:"); name
+	 * = sc.nextLine();
+	 * 
+	 * if (name.equals("0")) { break; }
+	 * 
+	 * Product product = findProduct(name); boolean productAvailable = false;
+	 * 
+	 * if (product != null && product.isAvailable()) {
+	 * System.out.println("Introduce la cantidad deseada:"); quantity =
+	 * sc.nextInt();
+	 * 
+	 * if (product.getStock() == 0) { product.setAviable(false);
+	 * System.out.println("Producto sin stock."); } else if (quantity >
+	 * product.getStock()) { product.setAviable(false);
+	 * System.out.println("Cantidad mayor al stock disponible del producto.");
+	 * break; } else { productAvailable = true; products.add(product_num, product);
+	 * product_num++; totalAmount.setValue(totalAmount.getValue() +
+	 * (product.getPublicPrice().getValue() * quantity));
+	 * product.setStock(product.getStock() - quantity);
+	 * System.out.println("Producto añadido con éxito"); } }
+	 * 
+	 * /* if (!productAvailable) { System.out.println("Producto no encontrado"); } }
 	 * 
 	 * if (totalAmount.getValue() > 0) { totalAmount.setValue(totalAmount.getValue()
 	 * TAX_RATE);

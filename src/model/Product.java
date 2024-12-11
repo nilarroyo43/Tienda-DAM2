@@ -26,6 +26,7 @@ public class Product {
         this.wholesalerPrice = wholesalerPrice;
         this.stock = stock;
         }
+    
 
     @XmlAttribute
     public int getId() {

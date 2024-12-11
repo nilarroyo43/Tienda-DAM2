@@ -187,17 +187,26 @@ public class ProductView extends javax.swing.JDialog {
 
         String name = jTName.getText();
 
-        boolean product = shop.productExists(name);
+        boolean productExist = shop.productExists(name);
 
-        if (!product) {
+        if (!productExist) {
             double wholesalerPrice = parseDouble(jTPrice.getText());
             int stock = parseInt(jTStock.getText());
             Product prdct = new Product(name, new Amount(wholesalerPrice, "€"), stock);
+            int idToAdd = 0;
+            for(Product product : shop.inventory){
+            	idToAdd = product.getId() + 1;
+            }
+            prdct.setId(idToAdd);
             shop.inventory.add(prdct);
             shop.numberProducts++;
-            shop.addProductSql(prdct);
+            
+            boolean finish = shop.addProductSql(prdct);
+            if(finish) {
             JOptionPane.showMessageDialog(this, "El producto se a añadido correctamente en el inventario", "SUCCES", JOptionPane.PLAIN_MESSAGE);
-
+            }else {
+                JOptionPane.showMessageDialog(this, "El producto no ha podido añadirse en la base de datos", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "El producto a añadir ya existe en el inventario.", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -213,9 +222,13 @@ public class ProductView extends javax.swing.JDialog {
             int stock = parseInt(jTStock.getText());
             int newStock = product.getStock() + stock;
             product.setStock(newStock);
-            shop.updateStockSql(product);
+            boolean finish = shop.updateStockSql(product);
+            if(finish) {
             JOptionPane.showMessageDialog(this, "El stock del producto " + name + " ha sido actualizado ", "SUCCES", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
+            }else {
+                JOptionPane.showMessageDialog(this, "El producto no se a podido actualizar en la base de datos", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "No se ha encontrado el producto." + name, "ERROR", JOptionPane.ERROR_MESSAGE);
 
@@ -232,9 +245,14 @@ public class ProductView extends javax.swing.JDialog {
                 for (int i = 0; i < shop.inventory.size(); i++) {
                     if (shop.inventory.get(i) != null && shop.inventory.get(i).getName().equalsIgnoreCase(name)) {
                         shop.inventory.remove(i);
-                        shop.deleteProductSql(prod);
+                        boolean finish = shop.deleteProductSql(prod);
+                        if (finish) {
                         JOptionPane.showMessageDialog(this, "El stock del producto " + name + " ha sido eliminado ", "SUCCES", JOptionPane.PLAIN_MESSAGE);
                         dispose();
+                        }else {
+                            JOptionPane.showMessageDialog(this, "El producto no se ha podido eliminar de la base de datos", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+                        }
                     }
                 }
             }

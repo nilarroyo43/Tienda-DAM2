@@ -91,7 +91,11 @@ public class DaoImplJDBC implements Dao {
 				while (rs.next()) {
 					// get data for each person from column
 					wholesalerPrice = new Amount(rs.getInt(3), "€");
-					product.add(new Product(rs.getString(2), wholesalerPrice, rs.getInt(5)));
+					Product producto = new Product(rs.getString(2), wholesalerPrice, rs.getInt(5));
+					producto.setId(rs.getInt(1));
+					product.add(producto);
+					
+					
 				}
 			}
 		} catch (SQLException e) {
@@ -117,13 +121,13 @@ public class DaoImplJDBC implements Dao {
 				preparedStatement.setInt(5, product.getStock());
 				preparedStatement.setString(6, formattedDateTime);
 				preparedStatement.executeUpdate();
-				return true;
 			}
-			System.out.println("exportado// debe ser pestaña aparte");
+			return true;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return false;
 	}
 
@@ -132,7 +136,6 @@ public class DaoImplJDBC implements Dao {
 		try (PreparedStatement deleteStatement = connection.prepareStatement(DELETE_PRODUCT)) {
 			deleteStatement.setString(1, producto.getName()); 
 			deleteStatement.executeUpdate();
-			System.out.println("exportado// debe ser pestaña aparte");
 			return true;
 		} catch (SQLException e) {
 			
@@ -144,13 +147,12 @@ public class DaoImplJDBC implements Dao {
 	@Override
 	public boolean addProduct(Product producto) throws IOException {
 		try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PRODUCT)) {
-			preparedStatement.setInt(1, producto.getId());
+			preparedStatement.setInt(1, producto.getId());			
 			preparedStatement.setString(2, producto.getName());
 			preparedStatement.setDouble(3, producto.getWholesalerPrice().getValue());
 			preparedStatement.setBoolean(4, producto.getAvailable());
 			preparedStatement.setInt(5, producto.getStock());
 			preparedStatement.executeUpdate();
-			System.out.println("añadido a la base de datos// debe ser pestaña aparte");
 			return true;
 		} catch (SQLException e) {
 			
@@ -167,7 +169,7 @@ public class DaoImplJDBC implements Dao {
 			updateStatement.setInt(1,stock);
 			updateStatement.setString(2,name);
 			updateStatement.executeUpdate();
-			System.out.println("stock actualizado// debe ser pestaña aparte");
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

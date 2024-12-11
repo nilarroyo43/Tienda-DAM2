@@ -26,12 +26,9 @@ public class JaxbMarshaller {
 			String formattedDate = currentDate.format(formatter);
 			File f = new File("jaxb/invetory_" + formattedDate + ".xml");
 			marshaller.marshal(products, f);
-			JOptionPane.showMessageDialog(null, "Archivo exportado", "Exported", JOptionPane.PLAIN_MESSAGE);
 			return true;
 		} catch (JAXBException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "No se a podido exportar el archivo", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
 			return false;
 
 		}

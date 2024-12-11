@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
+
 import main.Shop;
 import model.Product;
 import utils.Constants;
@@ -150,7 +153,12 @@ public class ShopView extends javax.swing.JFrame {
     public void openCashView() throws IOException {
         CashView cv = new CashView(tienda);
         cv.setVisible(true);
-        tienda.writeInventory();
+       boolean exported = tienda.writeInventory();
+       if (exported) {
+			JOptionPane.showMessageDialog(null, "Archivo exportado", "Exported", JOptionPane.PLAIN_MESSAGE);
+		} else {
+		JOptionPane.showMessageDialog(null, "No se a podido exportar el archivo", "ERROR",JOptionPane.ERROR_MESSAGE);
+		}
     }
 
     public void OpenProductView() {
