@@ -1,4 +1,4 @@
-Product:Pera;wholeseler Price:30.00;Available:true;Stock:20;
-Product:Hamburguesa;wholeseler Price:20.00;Available:true;Stock:30;
-Product:Fresa;wholeseler Price:5.00;Available:true;Stock:20;
-Product:Sandia;wholeseler Price:8.00;Available:true;Stock:15;
+Product:Pera;wholeseler Price:30.00;Stock:20;
+Product:Hamburguesa;wholeseler Price:20.00;Stock:30;
+Product:Fresa;wholeseler Price:5.00;Stock:20;
+Product:Sandia;wholeseler Price:8.00;Stock:15;

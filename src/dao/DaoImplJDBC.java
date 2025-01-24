@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.Shop;
 import model.Amount;
 import model.Employee;
 import model.Person;
@@ -19,6 +20,7 @@ import model.Product;
 
 public class DaoImplJDBC implements Dao {
 	private Connection connection;
+	private Shop shop;
 
 	@Override
 	public void connect() {
@@ -40,8 +42,8 @@ public class DaoImplJDBC implements Dao {
 			+ "VALUES (?, ?, ?, ?, ?, ?)";
 	public static final String INSERT_PRODUCT = "INSERT INTO inventory (id, name, wholesalerPrice, available, stock) "
 			+ "VALUES (?, ?, ?, ?, ?)";
-	public static final String DELETE_PRODUCT = "DELETE FROM inventory WHERE name = ?";
-	public static final String UPDATE_PRODUCT = "UPDATE inventory SET stock = ? WHERE name = ?";;
+	public static final String DELETE_PRODUCT = "DELETE FROM inventory WHERE id = ?";
+	public static final String UPDATE_PRODUCT = "UPDATE inventory SET stock = ? WHERE id = ?";;
 
 	@Override
 	public Employee getEmployee(int employeeid, String password) {
@@ -94,8 +96,7 @@ public class DaoImplJDBC implements Dao {
 					Product producto = new Product(rs.getString(2), wholesalerPrice, rs.getInt(5));
 					producto.setId(rs.getInt(1));
 					product.add(producto);
-					
-					
+
 				}
 			}
 		} catch (SQLException e) {
@@ -111,9 +112,9 @@ public class DaoImplJDBC implements Dao {
 		try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_HISTORY_PRODUCT)) {
 			for (Product product : inventario) {
 				LocalDateTime currentDateTime = LocalDateTime.now();
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 																				
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 				String formattedDateTime = currentDateTime.format(formatter);
-				
+
 				preparedStatement.setInt(1, product.getId());
 				preparedStatement.setString(2, product.getName());
 				preparedStatement.setDouble(3, product.getWholesalerPrice().getValue());
@@ -127,18 +128,18 @@ public class DaoImplJDBC implements Dao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return false;
 	}
 
 	@Override
 	public boolean deleteProduct(Product producto) throws IOException {
 		try (PreparedStatement deleteStatement = connection.prepareStatement(DELETE_PRODUCT)) {
-			deleteStatement.setString(1, producto.getName()); 
+			deleteStatement.setInt(1, producto.getId());
 			deleteStatement.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}
 		return false;
@@ -147,7 +148,7 @@ public class DaoImplJDBC implements Dao {
 	@Override
 	public boolean addProduct(Product producto) throws IOException {
 		try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PRODUCT)) {
-			preparedStatement.setInt(1, producto.getId());			
+			preparedStatement.setInt(1, producto.getId());
 			preparedStatement.setString(2, producto.getName());
 			preparedStatement.setDouble(3, producto.getWholesalerPrice().getValue());
 			preparedStatement.setBoolean(4, producto.getAvailable());
@@ -155,19 +156,18 @@ public class DaoImplJDBC implements Dao {
 			preparedStatement.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-
-
 	@Override
 	public boolean updateProduct(String name, int stock) throws IOException {
+		Product product = shop.findProduct(name);
 		try (PreparedStatement updateStatement = connection.prepareStatement(UPDATE_PRODUCT)) {
 			updateStatement.setInt(1,stock);
-			updateStatement.setString(2,name);
+			updateStatement.setInt(2,product.getId());
 			updateStatement.executeUpdate();
 			return true;
 		} catch (SQLException e) {

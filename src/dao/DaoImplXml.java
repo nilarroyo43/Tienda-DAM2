@@ -36,7 +36,7 @@ public class DaoImplXml implements Dao {
 				SAXParser parser;
 				try {
 					parser = factory.newSAXParser();
-					File file = new File ("files/inputInvetory.xml");
+					File file = new File ("xml/inputInvetory.xml");
 					SaxReader saxReader = new SaxReader();
 					parser.parse(file, saxReader);
 					inventario = saxReader.getProducts();

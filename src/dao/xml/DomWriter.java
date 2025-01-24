@@ -91,7 +91,7 @@ public class DomWriter {
 			LocalDate currentDate = LocalDate.now();
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			String formattedDate = currentDate.format(formatter);
-			File f = new File("files/invetory_" + formattedDate + ".xml");
+			File f = new File("xml/inventory_" + formattedDate + ".xml");
 			// File file = new File("files/productsOutput.xml");
 			FileWriter fw = new FileWriter(f);
 			PrintWriter pw = new PrintWriter(fw);
