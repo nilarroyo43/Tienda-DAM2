@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import dao.DaoImplFile;
+import dao.DaoImplHibernate;
 import dao.DaoImplJDBC;
 import dao.DaoImplJaxb;
 import dao.DaoImplXml;
@@ -30,7 +31,8 @@ public class Shop {
 	// private ArrayList<Sale> sales;
 	// public DaoImplFile shopDao = new DaoImplFile();
 	// public DaoImplJaxb shopDao = new DaoImplJaxb();
-	public DaoImplJDBC shopDao = new DaoImplJDBC();
+	// public DaoImplJDBC shopDao = new DaoImplJDBC();
+	public DaoImplHibernate shopDao = new DaoImplHibernate();
 	public List<Product> inventory;
 
 	// int sale_num = 0;
@@ -95,10 +97,10 @@ public class Shop {
 	 */
 
 	public void readInvetory() throws IOException {
-		List<Product> invetario = shopDao.getInventory();
-		if (invetario != null) {
-			this.setInvetory(invetario);
-			for (Product p : invetario) {
+		List<Product> inventario = shopDao.getInventory();
+		if (inventario != null) {
+			this.setInvetory(inventario);
+			for (Product p : inventario) {
 				System.out.println(p);
 			}
 		} else {
