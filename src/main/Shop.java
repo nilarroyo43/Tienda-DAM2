@@ -14,6 +14,7 @@ import dao.DaoImplFile;
 import dao.DaoImplHibernate;
 import dao.DaoImplJDBC;
 import dao.DaoImplJaxb;
+import dao.DaoImplMongoDB;
 import dao.DaoImplXml;
 
 import java.io.BufferedReader;
@@ -31,8 +32,10 @@ public class Shop {
 	// private ArrayList<Sale> sales;
 	// public DaoImplFile shopDao = new DaoImplFile();
 	// public DaoImplJaxb shopDao = new DaoImplJaxb();
+	// public DaoImplXml shopDao = new DaoImplXml();
 	// public DaoImplJDBC shopDao = new DaoImplJDBC();
-	public DaoImplHibernate shopDao = new DaoImplHibernate();
+	 //public DaoImplHibernate shopDao = new DaoImplHibernate();
+	 public DaoImplMongoDB shopDao = new DaoImplMongoDB();
 	public List<Product> inventory;
 
 	// int sale_num = 0;
@@ -203,8 +206,6 @@ public class Shop {
 		}
 	}
 
-	// **
-	// * set a product as expired
 
 	/*
 	 * private void setExpired() { Scanner scanner = new Scanner(System.in);

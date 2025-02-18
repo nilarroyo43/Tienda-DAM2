@@ -4,12 +4,14 @@ import java.sql.SQLException;
 
 import dao.Dao;
 import dao.DaoImplJDBC;
+import dao.DaoImplMongoDB;
 import main.Logable;
 
 public class Employee extends Person implements Logable {
 	private int employeeId;
 	private boolean logged = false;
-	public Dao dao = new DaoImplJDBC();
+	//public Dao dao = new DaoImplJDBC();
+	public Dao dao = new DaoImplMongoDB();
 
 	public Employee(int employeeId, String name, String password) {
 		super();
@@ -40,6 +42,7 @@ public class Employee extends Person implements Logable {
 	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
+	
 
 	/*
 	 * public static int getUSER() { return USER; }

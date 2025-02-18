@@ -56,8 +56,8 @@ public class Product {
 		return publiPrice;
 	}
 
-	public void setPubliPrice(Amount publiPrice) {
-		this.publiPrice = publiPrice;
+	public void setPubliPrice(Amount wholesalerPrice) {
+		this.publiPrice = new Amount((wholesalerPrice.getValue() * 2), "€");
 	}
 
 	public Product(String name, Amount wholesalerPrice, int stock) {
