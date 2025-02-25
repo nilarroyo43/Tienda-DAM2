@@ -34,8 +34,8 @@ public class Shop {
 	// public DaoImplJaxb shopDao = new DaoImplJaxb();
 	// public DaoImplXml shopDao = new DaoImplXml();
 	// public DaoImplJDBC shopDao = new DaoImplJDBC();
-	 //public DaoImplHibernate shopDao = new DaoImplHibernate();
-	 public DaoImplMongoDB shopDao = new DaoImplMongoDB();
+	//public DaoImplHibernate shopDao = new DaoImplHibernate();
+	public DaoImplMongoDB shopDao = new DaoImplMongoDB();
 	public List<Product> inventory;
 
 	// int sale_num = 0;

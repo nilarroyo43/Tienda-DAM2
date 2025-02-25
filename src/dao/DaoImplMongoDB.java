@@ -53,7 +53,6 @@ public class DaoImplMongoDB implements Dao {
 		Employee employee = null;
 		Document document = collection_Employee.find(and(eq("employeeId", employeeid), eq("password", password))).first();
 		if (document != null) {
-			System.out.println("Document read by id and password: " + document.toJson());
 			employee = new Employee();
 			employee.setEmployeeId(employeeid);
 		}
@@ -69,7 +68,6 @@ public class DaoImplMongoDB implements Dao {
 
 		int count = 0;
 		for (Document doc : documents) {
-			System.out.println("document read on list " + (++count) + ": " + doc.toJson());
 			Product product = new Product();
 			Document wholesalerPrice = (Document) doc.get("wholesalerPrice");
 	        product.setId(doc.getInteger("id"));  
@@ -100,7 +98,6 @@ public class DaoImplMongoDB implements Dao {
 					.append("wholesalerPrice", new Document("value", product.getWholesalerPrice().getValue()).append("currency", "€"))
 					.append("aviable", product.getAvailable()).append("stock", product.getStock()).append("created_at", formattedDateTime);
 			collection_History.insertOne(document);
-			System.out.println("document inserted" + document);
 			export = true;
 		}
 		return export;
@@ -115,7 +112,6 @@ public class DaoImplMongoDB implements Dao {
 					.append("wholesalerPrice", new Document("value", producto.getWholesalerPrice().getValue()).append("currency", "€"))
 					.append("aviable", producto.getAvailable()).append("stock", producto.getStock());
 			collection_Invetory.insertOne(document);
-			System.out.println("document inserted" + document);
 			created = true;
 		
 		return created;
@@ -127,7 +123,6 @@ public class DaoImplMongoDB implements Dao {
 		boolean updated = false;
 		UpdateResult result = collection_Invetory.updateOne(eq("name", name),
 				(set("stock", stock)));
-		System.out.println("document updated by name" + result.toString());
 		if(result != null) {
 			updated = true;
 		}
@@ -139,7 +134,6 @@ public class DaoImplMongoDB implements Dao {
 		boolean deleted = false;
 		DeleteResult result = null;
 		result = collection_Invetory.deleteOne(eq("id", producto.getId()));
-		System.out.println("deleted "+ result);
 		if (result != null) {
 			deleted = true;
 		}
