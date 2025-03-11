@@ -9,7 +9,7 @@ import model.Employee;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+import dao.Dao;
 import dao.DaoImplFile;
 import dao.DaoImplHibernate;
 import dao.DaoImplJDBC;
@@ -35,7 +35,7 @@ public class Shop {
 	// public DaoImplXml shopDao = new DaoImplXml();
 	// public DaoImplJDBC shopDao = new DaoImplJDBC();
 	//public DaoImplHibernate shopDao = new DaoImplHibernate();
-	public DaoImplMongoDB shopDao = new DaoImplMongoDB();
+	private Dao shopDao = new DaoImplMongoDB();
 	public List<Product> inventory;
 
 	// int sale_num = 0;
